@@ -1,3 +1,4 @@
+CREATE EXTENSION postgis;
 CREATE TABLE users
 (
     id INTEGER PRIMARY KEY NOT NULL,
@@ -17,5 +18,3 @@ CREATE TABLE records
     CONSTRAINT records_pkey PRIMARY KEY (user_id, daterecorded),
     CONSTRAINT records_user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id)
 );
-
-CREATE EXTENSION postgis;
