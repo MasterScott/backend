@@ -12,7 +12,7 @@ CREATE TABLE records
 (
     user_id INTEGER NOT NULL,
     imageurl VARCHAR(100),
-    audiourl VARCHAR(100) NOT NULL,
+    audiourl VARCHAR(100),
     daterecorded TIMESTAMP NOT NULL,
     location GEOGRAPHY NOT NULL,
     CONSTRAINT records_pkey PRIMARY KEY (user_id, daterecorded),
