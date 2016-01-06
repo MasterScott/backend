@@ -7,6 +7,9 @@ CREATE TABLE users
     lastname VARCHAR(50)
 );
 CREATE UNIQUE INDEX users_email_uindex ON users (email);
+CREATE SEQUENCE public.users_id_seq NO MINVALUE NO MAXVALUE NO CYCLE;
+ALTER TABLE public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq');
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 CREATE TABLE records
 (
