@@ -1,0 +1,10 @@
+{
+  "dev" : {
+  },
+  "production" : {
+    "db" : {
+      "username": "",
+      "password": ""
+    }
+  }
+}
