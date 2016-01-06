@@ -40,7 +40,7 @@ router.get('/users/:id', function(req, res) {
 
 router.post('/users/add', function(req, res){
   var requestBody = req.body;
-  if (requestBody.email && requestBody.firstname && requestBody.lastname) {
+  if (requestBody.email) {
     db.one("INSERT INTO Users(email, firstname, lastname) values($1, $2, $3) returning id", [requestBody.email, requestBody.firstname, requestBody.lastname])
       .then(function(data) {
         res.send({
