@@ -10,7 +10,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-var routes = require('./routes.js');
+var routes = require('./utils/routes.js');
 app.get('/users/', routes.getAllUsers);
 app.get('/users/:id', routes.getUser);
 app.post('/users/add', routes.addUser);

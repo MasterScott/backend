@@ -1,5 +1,5 @@
 var baseUrl = "http://localhost:3000/api/";
-var db = require('./model/database.js')
+var db = require('../model/database.js')
 
 exports.getAllUsers = function(req, res) {
   db.query("SELECT * FROM users")
