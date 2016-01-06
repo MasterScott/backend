@@ -1,7 +1,9 @@
 var baseUrl = "http://localhost:3000/api/";
 var db = require('../model/database.js')
+var express = require('express');
+var router = express.Router();
 
-exports.getAllUsers = function(req, res) {
+router.get('/users/', function(req, res){
   db.query("SELECT * FROM users")
     .then(function(data) {
       res.send({
@@ -15,9 +17,9 @@ exports.getAllUsers = function(req, res) {
         error: error.message
       });
     });
-}
+});
 
-exports.getUser = function(req, res) {
+router.get('/users/:id', function(req, res) {
   var id = req.params.id;
   if (id) {
     db.one("SELECT * FROM users WHERE id = $1", id)
@@ -34,9 +36,9 @@ exports.getUser = function(req, res) {
         });
       });
   }
-}
+});
 
-exports.addUser = function(req, res) {
+router.post('/users/add', function(req, res){
   var requestBody = req.body;
   if (requestBody.email && requestBody.firstname && requestBody.lastname) {
     db.one("INSERT INTO Users(email, firstname, lastname) values($1, $2, $3) returning id", [requestBody.email, requestBody.firstname, requestBody.lastname])
@@ -60,9 +62,9 @@ exports.addUser = function(req, res) {
       error: 'You need an email, firstname and lastname'
     });
   }
-};
+});
 
-exports.addRecord = function(req, res) {
+router.post('/records/add', function(req, res) {
   var requestBody = req.body;
   console.log(requestBody.location);
   if (requestBody.timestamp && requestBody.location && requestBody.account_id) {
@@ -85,4 +87,6 @@ exports.addRecord = function(req, res) {
       error: "invalid parameters"
     });
   }
-}
+});
+
+module.exports = router;
