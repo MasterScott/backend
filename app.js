@@ -7,7 +7,7 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var routes = require('./utils/routes.js');
+var routes = require('./router/routes.js');
 app.use('/api', routes);
 
 var server = app.listen(3001, function(){
