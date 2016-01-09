@@ -19,7 +19,7 @@ router.get('/', function(req, res){
     });
 });
 
-router.get('/:id', function(req, res) {
+router.get('/get/id/:id', function(req, res) {
   var id = req.params.id;
   if (id) {
     db.one("SELECT * FROM users WHERE id = $1", id)
@@ -37,6 +37,26 @@ router.get('/:id', function(req, res) {
       });
   }
 });
+
+router.get('/get/email/:email', function(req, res) {
+  var email = req.params.email;
+  if (email) {
+    db.one("SELECT * FROM users WHERE email='$1^'", email)
+      .then(function(data) {
+        res.send({
+          success: true,
+          data: data
+        });
+      })
+      .catch(function(error){
+        res.send({
+          success: false,
+          error: error.message
+        });
+      });
+  }
+});
+
 
 router.post('/add', function(req, res){
   var requestBody = req.body;
