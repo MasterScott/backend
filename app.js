@@ -7,8 +7,10 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var routes = require('./router/routes.js');
-app.use('/api', routes);
+var users = require('./router/users.js');
+var records = require('./router/records.js');
+app.use('/api/users', users);
+app.use('/api/records', records);
 
 var server = app.listen(3001, function(){
   console.log("Listening on Port 3001");
