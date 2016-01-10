@@ -34,6 +34,7 @@ function providesLocation(obj) {
       this._rawDBType= true;
       return pgp.as.format("ST_MakePoint(${lon}, ${lat})", obj.location);
     },
+    _rawDBType: true
   };
 }
 
@@ -45,10 +46,10 @@ function providesPolygon(obj) {
         minY: parseFloat(obj.boundsArray[1]),
         maxX: parseFloat(obj.boundsArray[2]),
         maxY: parseFloat(obj.boundsArray[3])
-      }
-      this._rawDBType = true;
+      };
       return pgp.as.format("ST_MakePolygon(ST_GeomFromText('LINESTRING(${minX} ${minY},${maxX} ${minY},${maxX} ${maxY}, ${minX} ${maxY}, ${minX} ${minY})'))", polygon)
-    }
+    },
+    _rawDBType: true
   }
 }
 
