@@ -60,18 +60,13 @@ router.get('/get', function(req, res) {
     toDateTime: req.query.to_datetime
   }
   if (requestParams.id) {
-    var polygon = {
-      minX: requestParams.boundsArray[0],
-      minY: requestParams.boundsArray[1],
-      maxX: requestParams.boundsArray[2],
-      maxY: requestParams.boundsArray[3]
-    };
     providesPolygon(requestParams);
     db.query("SELECT * FROM Records WHERE st_covers(${getPolygon}, location) AND user_id=${id}", requestParams)
       .then(function(data){
+        var returnData = (data.length === 0 ? null : data);
         res.send({
           success: true,
-          data: data
+          data: returnData
         });
       })
       .catch(function(error){
