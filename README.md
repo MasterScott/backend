@@ -37,12 +37,12 @@ Sample Response:
   ]
 }
 ```
-#### Get User
+#### Get User By Id
 | Method | Route |
 |--------|--------|
-| GET  | /users/{id} |
+| GET  | /users/get/id/{id} |
 
-Sample Response (/users/2):
+Sample Response (/api/users/get/id/2):
 ```json
 {
   "success": true,
@@ -54,6 +54,24 @@ Sample Response (/users/2):
   }
 }
 ```
+#### Get User By Email
+| Method | Route |
+|--------|--------|
+| GET  | /users/get/email/{email} |
+
+Sample Response (/api/users/get/email/duncanleo97@gmail.com):
+```json
+{
+  "success": true,
+  "data": {
+    "id": 2,
+    "email": "duncanleo97@gmail.com",
+    "firstname": "Duncan",
+    "lastname": "Leo"
+  }
+}
+```
+
 #### Add User
 | Method | Route |
 |--------|--------|
@@ -95,3 +113,14 @@ Sample response:
   "success": true
 }
 ```
+#### Querying a User's Records
+| Method | Route |
+| ------ | ----- |
+|  GET  | /records/get/ |
+
+| Key | Required | Description |
+| --- | -------- | ----------- |
+| account_id | required | the user's account id |
+| bounds | optional | urlValue string representation of the LatLngBounds returned by GMaps |
+| from_datetime | optional | start time of location query |
+| to_datetime | optional | end time of location query |

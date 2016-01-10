@@ -41,7 +41,7 @@ router.get('/get/id/:id', function(req, res) {
 router.get('/get/email/:email', function(req, res) {
   var email = req.params.email;
   if (email) {
-    db.one("SELECT * FROM users WHERE email='$1^'", email)
+    db.one("SELECT * FROM users WHERE email=$1", email)
       .then(function(data) {
         res.send({
           success: true,
