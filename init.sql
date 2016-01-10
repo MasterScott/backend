@@ -17,7 +17,7 @@ CREATE TABLE records
     imageurl VARCHAR(100),
     audiourl VARCHAR(100),
     daterecorded TIMESTAMP NOT NULL,
-    location GEOGRAPHY NOT NULL,
+    location GEOGRAPHY(POINT,4326) NOT NULL,
     CONSTRAINT records_pkey PRIMARY KEY (user_id, daterecorded),
     CONSTRAINT records_user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id)
 );
