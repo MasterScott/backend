@@ -42,10 +42,10 @@ function providesPolygon(obj) {
   obj.getPolygon = {
     formatDBType: function() {
       var polygon = {
-        minX: parseFloat(obj.boundsArray[0]),
-        minY: parseFloat(obj.boundsArray[1]),
-        maxX: parseFloat(obj.boundsArray[2]),
-        maxY: parseFloat(obj.boundsArray[3])
+        minY: parseFloat(obj.boundsArray[0]),
+        minX: parseFloat(obj.boundsArray[1]),
+        maxY: parseFloat(obj.boundsArray[2]),
+        maxX: parseFloat(obj.boundsArray[3])
       };
       return pgp.as.format("ST_MakePolygon(ST_GeomFromText('LINESTRING(${minX} ${minY},${maxX} ${minY},${maxX} ${maxY}, ${minX} ${maxY}, ${minX} ${minY})'))", polygon)
     },
@@ -57,12 +57,14 @@ router.get('/get', function(req, res) {
   var requestParams = {
     id: req.query.account_id,
     boundsArray: req.query.bounds.split(','),
-    fromDateTime: req.query.from_datetime,
-    toDateTime: req.query.to_datetime
+    fromDateTime: (req.query.from_datetime ? req.query.from_datetime : ''),
+    toDateTime: (req.query.to_datetime ? req.query.to_datetime : '')
   }
+  var fromDateComparison = " AND daterecorded >= ${fromDateTime} "
+  var toDateComparison = "AND daterecorded < ${toDateTime}"
   if (requestParams.id) {
     providesPolygon(requestParams);
-    db.query("SELECT * FROM Records WHERE st_covers(${getPolygon}, location) AND user_id=${id}", requestParams)
+    db.query("SELECT * FROM Records WHERE st_covers(${getPolygon}, location) AND user_id=${id}" + (requestParams.fromDateTime ? fromDateComparison : '') + (requestParams.toDateTime ? toDateComparison : ''), requestParams)
       .then(function(data){
         var returnData = (data.length === 0 ? null : data);
         res.send({
