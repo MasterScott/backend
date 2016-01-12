@@ -3,7 +3,7 @@ var pgp = require("pg-promise")(/*options*/);
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res){
+router.get('/get', function(req, res){
   db.query("SELECT * FROM users")
     .then(function(data) {
       res.send({
