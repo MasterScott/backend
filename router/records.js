@@ -64,9 +64,21 @@ router.get('/get', function(req, res) {
   var toDateComparison = "AND daterecorded < ${toDateTime}"
   if (requestParams.id) {
     providesPolygon(requestParams);
-    db.query("SELECT * FROM Records WHERE st_covers(${getPolygon}, location) AND user_id=${id}" + (requestParams.fromDateTime ? fromDateComparison : '') + (requestParams.toDateTime ? toDateComparison : ''), requestParams)
+    db.query("SELECT *, ST_X(location::geometry) as \"lon\", ST_Y(location::geometry) as \"lat\" FROM Records WHERE st_covers(${getPolygon}, location) AND user_id=${id}" + (requestParams.fromDateTime ? fromDateComparison : '') + (requestParams.toDateTime ? toDateComparison : ''), requestParams)
       .then(function(data){
-        var returnData = (data.length === 0 ? null : data);
+        var returnData = (data.length === 0 ? null : data.map((record) => {
+          return {
+            user_id: record.user_id,
+            image_url: record.imageurl,
+            audio_url: record.audiourl,
+            daterecorded: record.daterecorded,
+            location: {
+              lat: record.lat,
+              lon: record.lon
+            }
+          }
+        }));
+
         res.send({
           success: true,
           data: returnData
