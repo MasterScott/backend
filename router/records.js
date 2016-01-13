@@ -32,7 +32,6 @@ router.post('/add', function(req, res) {
 function providesLocation(obj) {
   obj.getLocation = {
     formatDBType: function() {
-      this._rawDBType= true;
       return pgp.as.format("ST_MakePoint(${lon}, ${lat})", obj.location);
     },
     _rawDBType: true
