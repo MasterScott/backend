@@ -1,7 +1,13 @@
 {
   "dev" : {
+    "s3": {
+      "bucketName": ""
+    }
   },
   "production" : {
+    "s3": {
+      "bucketName": ""
+    },
     "db" : {
       "username": "",
       "password": ""
