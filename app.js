@@ -11,8 +11,8 @@ app.use(cors());
 
 var users = require('./router/users.js');
 var records = require('./router/records.js');
-app.use('/api/users', users);
-app.use('/api/records', records);
+app.use('/users', users);
+app.use('/records', records);
 
 var server = app.listen(3001, function(){
   console.log("Listening on Port 3001");
