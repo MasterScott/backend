@@ -2,6 +2,7 @@ var db = require('../model/database.js')
 var pgp = require("pg-promise")(/*options*/);
 var express = require('express');
 var router = express.Router();
+var s3 = require('../utils/s3.js');
 
 router.post('/add', function(req, res) {
   var requestBody = req.body;
@@ -69,8 +70,8 @@ router.get('/get', function(req, res) {
         var returnData = (data.length === 0 ? null : data.map((record) => {
           return {
             user_id: record.user_id,
-            image_url: record.imageurl,
-            audio_url: record.audiourl,
+            image_url: s3.getAsset(record.imageurl),
+            audio_url: s3.getAsset(record.audiourl),
             daterecorded: record.daterecorded,
             location: {
               lat: record.lat,
