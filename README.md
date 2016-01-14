@@ -2,6 +2,8 @@
 
 Columbus is a school assignment where we build an unassuming Android application that sends location, audio, and image snapshots without much indication whatsoever on the phone itself. This piece of backend code basically just keeps track of all that data.
 
+Media assets are pulled and queried from our S3 bucket.
+
 ## Note
 It's far from perfect, because making it an actual product beyond the scope of the demo we're supposed to give is not our intention. This also happens to be my first Node project I am publishing here on Github so if you want to give some feedback, please do!
 
@@ -124,3 +126,32 @@ Sample response:
 | bounds | optional | urlValue string representation of the LatLngBounds returned by GMaps |
 | from_datetime | optional | start time of location query |
 | to_datetime | optional | end time of location query |
+
+Sample Response:
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "user_id": 12,
+      "image_url": "",
+      "audio_url": "",
+      "daterecorded": "2016-01-10T19:59:58.000Z",
+      "location": {
+        "lat": 1.3104191,
+        "lng": 103.7717208
+      }
+    },
+    {
+      "user_id": 12,
+      "image_url": "",
+      "audio_url": "",
+      "daterecorded": "2016-01-11T11:03:42.000Z",
+      "location": {
+        "lat": 1.311857,
+        "lng": 103.772037
+      }
+    }
+  ]
+}
+```
