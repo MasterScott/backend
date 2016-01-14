@@ -1,10 +1,12 @@
 {
   "dev" : {
+    "auth_key" : "",
     "s3": {
       "bucketName": ""
     }
   },
   "production" : {
+    "auth_key" : "",
     "s3": {
       "bucketName": ""
     },
