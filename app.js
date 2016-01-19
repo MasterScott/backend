@@ -12,7 +12,7 @@ app.use(cors());
 
 var authorization = function(req, res, next){
   if (process.env.NODE_ENV) {
-    if (req.get('Authorization') === config.auth_key) {
+    if (req.get('Authorization') !== config.auth_key) {
       res.sendStatus(403);
     }
   }
