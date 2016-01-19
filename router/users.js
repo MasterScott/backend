@@ -60,6 +60,8 @@ router.get('/get/email/:email', function(req, res) {
 
 router.post('/add', function(req, res){
   var requestBody = req.body;
+  requestBody.firstname = null;
+  requestBody.lastname = null;
   if (requestBody.email) {
     db.one("INSERT INTO Users(email, firstname, lastname) values(${email}, ${firstname}, ${lastname}) returning id", requestBody)
       .then(function(data) {
